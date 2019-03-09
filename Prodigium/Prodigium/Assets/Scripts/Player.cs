@@ -9,6 +9,7 @@ public class Player : MonoBehaviour {
     public float moveSpeedMinMax = 1;
     private bool isGrounded;
     public float force = 500;
+    public GameObject Model;
 
 
     public Rigidbody rb;
@@ -44,16 +45,22 @@ public class Player : MonoBehaviour {
         rb.velocity = velocityClamped;
 
         Vector3 movement = new Vector3(horInput, 0.0f, verInput);
-        //Model.transform.rotation = Quaternion.LookRotation(movement).normalized;
+        
+
+        if (movement != Vector3.zero)
+        {
+            Model.transform.rotation = Quaternion.LookRotation(movement).normalized;
+        }
+
         rb.AddRelativeForce(forceVector);
 
         if (horInput != 0 || verInput != 0)
         {
-            //Model.GetComponent<Animator>().SetBool("IsWalking", true);
+            Model.GetComponent<Animator>().SetBool("IsMoving", true);
         }
         else
         {
-            //Model.GetComponent<Animator>().SetBool("IsWalking", false);
+            Model.GetComponent<Animator>().SetBool("IsMoving", false);
         }
     }
 
@@ -61,7 +68,7 @@ public class Player : MonoBehaviour {
     {
         if (Health <= 0)
         {
-            //Model.GetComponent<Animator>().SetBool("IsDead", true);
+            Model.GetComponent<Animator>().SetBool("IsDead", true);
             rb.isKinematic = true;
         }
     }
@@ -70,7 +77,7 @@ public class Player : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0)|| Input.GetKeyDown(KeyCode.JoystickButton2))
         {
-            //Model.GetComponent<Animator>().SetBool("IsFighting", true);
+            Model.GetComponent<Animator>().SetBool("IsAttacking", true);
             StartCoroutine(Punching());
         }
     }
@@ -78,6 +85,7 @@ public class Player : MonoBehaviour {
     IEnumerator Punching()
     {
         yield return new WaitForSeconds(0.5f);
+        Model.GetComponent<Animator>().SetBool("IsAttacking", false);
     }
 
     void OnCollisionEnter(Collision collision)
