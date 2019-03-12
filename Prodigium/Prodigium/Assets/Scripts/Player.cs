@@ -41,8 +41,6 @@ public class Player : MonoBehaviour {
 
     void CheckMovement()
     {
-        if (KnockBackCounter <= 0)
-        {
 
             float horInput = Input.GetAxis("Horizontal") * moveSpeed;
             float verInput = Input.GetAxis("Vertical") * moveSpeed;
@@ -70,11 +68,6 @@ public class Player : MonoBehaviour {
             {
                 Model.GetComponent<Animator>().SetBool("IsMoving", false);
             }
-        }
-        else
-        {
-            KnockBackCounter -= Time.deltaTime;
-        }
     }
 
     void HealthManager()
