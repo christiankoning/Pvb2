@@ -8,8 +8,9 @@ public class Player : MonoBehaviour {
     public float moveSpeed = 1;
     public float moveSpeedMinMax = 1;
     private bool isGrounded;
-    public float force = 500;
     public GameObject Model;
+    private Vector3 movement;
+    private Vector3 forceVector;
 
 
     public Rigidbody rb;
@@ -18,9 +19,13 @@ public class Player : MonoBehaviour {
 
     // Power Ups & Collectible
 
-    // Health
-    public float Health = 3;
 
+    //Damage
+    public GameObject DamageRange;
+    private bool IsSwinging;
+
+    // Health & Knockback
+    public float Health = 3;
 
     void Start()
     {
@@ -36,31 +41,39 @@ public class Player : MonoBehaviour {
 
     void CheckMovement()
     {
-        float horInput = Input.GetAxis("Horizontal") * moveSpeed;
-        float verInput = Input.GetAxis("Vertical") * moveSpeed;
-
-        Vector3 forceVector = new Vector3(horInput, 0.0f, verInput).normalized * moveSpeed;
-        velocityClamped = new Vector3(Mathf.Clamp(rb.velocity.x, -moveSpeedMinMax, moveSpeedMinMax), rb.velocity.y, Mathf.Clamp(rb.velocity.z, -moveSpeedMinMax, moveSpeedMinMax));
-
-        rb.velocity = velocityClamped;
-
-        Vector3 movement = new Vector3(horInput, 0.0f, verInput);
-        
-
-        if (movement != Vector3.zero)
+        if (KnockBackCounter <= 0)
         {
-            Model.transform.rotation = Quaternion.LookRotation(movement).normalized;
-        }
 
-        rb.AddRelativeForce(forceVector);
+            float horInput = Input.GetAxis("Horizontal") * moveSpeed;
+            float verInput = Input.GetAxis("Vertical") * moveSpeed;
 
-        if (horInput != 0 || verInput != 0)
-        {
-            Model.GetComponent<Animator>().SetBool("IsMoving", true);
+            forceVector = new Vector3(horInput, 0.0f, verInput).normalized * moveSpeed;
+            velocityClamped = new Vector3(Mathf.Clamp(rb.velocity.x, -moveSpeedMinMax, moveSpeedMinMax), rb.velocity.y, Mathf.Clamp(rb.velocity.z, -moveSpeedMinMax, moveSpeedMinMax));
+
+            rb.velocity = velocityClamped;
+
+            movement = new Vector3(horInput, 0.0f, verInput);
+
+
+            if (movement != Vector3.zero)
+            {
+                Model.transform.rotation = Quaternion.LookRotation(movement).normalized;
+            }
+
+            rb.AddRelativeForce(forceVector);
+
+            if (horInput != 0 || verInput != 0)
+            {
+                Model.GetComponent<Animator>().SetBool("IsMoving", true);
+            }
+            else
+            {
+                Model.GetComponent<Animator>().SetBool("IsMoving", false);
+            }
         }
         else
         {
-            Model.GetComponent<Animator>().SetBool("IsMoving", false);
+            KnockBackCounter -= Time.deltaTime;
         }
     }
 
@@ -75,10 +88,12 @@ public class Player : MonoBehaviour {
 
     void Hit()
     {
-        if (Input.GetMouseButtonDown(0)|| Input.GetKeyDown(KeyCode.JoystickButton2))
+        if (Input.GetMouseButtonDown(0) && IsSwinging == false || Input.GetKeyDown(KeyCode.JoystickButton2) && IsSwinging == false)
         {
             Model.GetComponent<Animator>().SetBool("IsAttacking", true);
             StartCoroutine(Punching());
+            IsSwinging = true;
+            DamageRange.SetActive(true);
         }
     }
 
@@ -86,6 +101,7 @@ public class Player : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.5f);
         Model.GetComponent<Animator>().SetBool("IsAttacking", false);
+        IsSwinging = false;
     }
 
     void OnCollisionEnter(Collision collision)
