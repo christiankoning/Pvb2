@@ -93,7 +93,7 @@ public class Player : MonoBehaviour {
         IsSwinging = true;
         DamageRange.SetActive(true);
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         Model.GetComponent<Animator>().SetBool("IsAttacking", false);
         IsSwinging = false;
         DamageRange.SetActive(false);

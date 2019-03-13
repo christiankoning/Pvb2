@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour {
     private bool AttackCooldown;
 
     private float TargetRaycastDistance = 0.1f;
+    private float VisibleDistance = 0.5f;
 
     void Start()
     {
@@ -33,17 +34,26 @@ public class Enemy : MonoBehaviour {
 
     void Movement()
     {
-        nma.destination = Player.transform.position;
 
-        float velocity = nma.velocity.magnitude;
+        Vector3 ToPlayer = (Player.transform.position - transform.position) * VisibleDistance;
+        Vector3 EnemyPos = new Vector3(transform.position.x, 3.5f, transform.position.z);
+        RaycastHit hit1;
+        Debug.DrawRay(EnemyPos, ToPlayer, Color.green);
 
-        if(velocity >= 0)
+        if (Physics.Raycast(EnemyPos, ToPlayer, out hit1, VisibleDistance))
         {
-            anim.SetBool("IsMoving", true);
-        }
-        else
-        {
-            anim.SetBool("IsMoving", false);
+            nma.destination = Player.transform.position;
+
+            float velocity = nma.velocity.magnitude;
+
+            if (velocity >= 0)
+            {
+                anim.SetBool("IsMoving", true);
+            }
+            else
+            {
+                anim.SetBool("IsMoving", false);
+            }
         }
         
     }
