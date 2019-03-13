@@ -25,7 +25,7 @@ public class Player : MonoBehaviour {
     private bool IsSwinging;
 
     // Health & Knockback
-    public float Health = 3;
+    public float Health = 100;
 
     void Start()
     {
@@ -85,23 +85,22 @@ public class Player : MonoBehaviour {
         {
             Model.GetComponent<Animator>().SetBool("IsAttacking", true);
             StartCoroutine(Punching());
-            IsSwinging = true;
-            DamageRange.SetActive(true);
         }
     }
 
     IEnumerator Punching()
     {
+        IsSwinging = true;
+        DamageRange.SetActive(true);
+
         yield return new WaitForSeconds(0.5f);
         Model.GetComponent<Animator>().SetBool("IsAttacking", false);
         IsSwinging = false;
+        DamageRange.SetActive(false);
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Enemy")
-        {
-            Health--;
-        }
+
     }
 }
