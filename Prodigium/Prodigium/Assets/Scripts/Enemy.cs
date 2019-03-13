@@ -13,9 +13,14 @@ public class Enemy : MonoBehaviour {
     private Animator anim;
     public Player player;
     private bool AttackCooldown;
+    private bool FoundPlayer;
+    private bool IsDead;
+    public LootManager Lmanager;
+    private bool SpawnedLoot;
+    private int RandomNumber;
 
     private float TargetRaycastDistance = 0.1f;
-    private float VisibleDistance = 0.5f;
+    private float VisibleDistance = 10f;
 
     void Start()
     {
@@ -42,6 +47,11 @@ public class Enemy : MonoBehaviour {
 
         if (Physics.Raycast(EnemyPos, ToPlayer, out hit1, VisibleDistance))
         {
+            FoundPlayer = true;
+        }
+
+        if(FoundPlayer == true && IsDead == false)
+        {
             nma.destination = Player.transform.position;
 
             float velocity = nma.velocity.magnitude;
@@ -54,6 +64,10 @@ public class Enemy : MonoBehaviour {
             {
                 anim.SetBool("IsMoving", false);
             }
+        }
+        if(IsDead == true)
+        {
+            nma.isStopped = true;
         }
         
     }
@@ -68,7 +82,7 @@ public class Enemy : MonoBehaviour {
 
         if (Physics.Raycast(EnemyPos, ToPlayer, out hit, TargetRaycastDistance))
         {
-            if(AttackCooldown == false && hit.distance <= 1)
+            if(AttackCooldown == false && hit.distance <= 1 && IsDead == false)
             {
                 anim.SetBool("IsAttacking", true);
                 player.Health = player.Health - 10;
@@ -96,7 +110,8 @@ public class Enemy : MonoBehaviour {
             anim.SetBool("IsDead", true);
             rb.isKinematic = true;
             nma.isStopped = true;
-            GetComponent<Enemy>().enabled = false;
+            IsDead = true;
+            Despawn();
         }
     }
 
@@ -106,5 +121,23 @@ public class Enemy : MonoBehaviour {
         {
             Health--;
         }
+    }
+
+    void Despawn()
+    {
+        StartCoroutine(Delete());
+        if (SpawnedLoot == false)
+        {
+            RandomNumber = Random.Range(0, 5);
+            GameObject Loot = Instantiate(Lmanager.Item[RandomNumber], transform.position + new Vector3(0,0.5f,0), Lmanager.Item[RandomNumber].transform.rotation);
+            Loot.name = Lmanager.Item[RandomNumber].name;
+            SpawnedLoot = true;
+        }
+    }
+
+    IEnumerator Delete()
+    {
+        yield return new WaitForSeconds(3);
+        Destroy(gameObject);
     }
 }

@@ -17,12 +17,12 @@ public class Player : MonoBehaviour {
 
     private Vector3 velocityClamped;
 
-    // Power Ups & Collectible
+    // Power Ups & Collectibles
 
 
     //Damage
     public GameObject DamageRange;
-    private bool IsSwinging;
+    public bool IsSwinging;
 
     // Health & Knockback
     public float Health = 100;
@@ -79,28 +79,15 @@ public class Player : MonoBehaviour {
         }
     }
 
-    void Hit()
+    public void Hit()
     {
-        if (Input.GetMouseButtonDown(0) && IsSwinging == false || Input.GetKeyDown(KeyCode.JoystickButton2) && IsSwinging == false)
+        if(Input.GetMouseButtonDown(0) && IsSwinging == false)
         {
             Model.GetComponent<Animator>().SetBool("IsAttacking", true);
-            StartCoroutine(Punching());
         }
-    }
-
-    IEnumerator Punching()
-    {
-        IsSwinging = true;
-        DamageRange.SetActive(true);
-
-        yield return new WaitForSeconds(0.25f);
-        Model.GetComponent<Animator>().SetBool("IsAttacking", false);
-        IsSwinging = false;
-        DamageRange.SetActive(false);
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-
+        else if(IsSwinging == true)
+        {
+            Model.GetComponent<Animator>().SetBool("IsAttacking", false);
+        }
     }
 }
