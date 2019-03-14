@@ -37,9 +37,11 @@ public class Puzzles : MonoBehaviour {
 
     void Update()
     {
-        if (WrongOrder >= 3)
+        if (WrongOrder >= 3 || Order >= 1 && WrongOrder >= 2)
         {
-            Debug.Log("WrongOrder");
+            WrongOrder = 0;
+            IsWrong = false;
+            Order = 1;
             Circle.color = Standard.color;
             Square.color = Standard.color;
             Star.color = Standard.color;
@@ -47,8 +49,6 @@ public class Puzzles : MonoBehaviour {
             CircleSelected = false;
             SquareSelected = false;
             StarSelected = false;
-            WrongOrder = 0;
-            IsWrong = false;
         }
     }
 
