@@ -1827,7 +1827,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1099731638075682}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 7.86, y: 3.141, z: 7.23}
+  m_LocalPosition: {x: 10.46, y: 3.141, z: 8.5}
   m_LocalScale: {x: 0.39730972, y: 0.39730972, z: 0.39730972}
   m_Children:
   - {fileID: 4165315410072732}
@@ -2323,12 +2323,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 025131ed0009bdf4b9051189b4c56412, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Player: {fileID: 1672901013704250, guid: ba13563271d71324091c8a140c54c4fb, type: 2}
-  SwordCollider: {fileID: 1672901013704250, guid: ba13563271d71324091c8a140c54c4fb,
-    type: 2}
-  Health: 1
+  Player: {fileID: 0}
+  SwordCollider: {fileID: 0}
+  Health: 2
   player: {fileID: 0}
   Lmanager: {fileID: 0}
+  col: {fileID: 136617156516029510}
 --- !u!136 &136617156516029510
 CapsuleCollider:
   m_ObjectHideFlags: 1

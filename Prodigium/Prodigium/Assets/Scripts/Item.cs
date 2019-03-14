@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Item : MonoBehaviour {
 
-    public Player player;
+    public GameObject player;
     public Inventory inventory;
     private string itemname;
 
     private void Start()
     {
-        player = FindObjectOfType<Player>();
+        player = GameObject.Find("Player");
         inventory = FindObjectOfType<Inventory>();
-        itemname = gameObject.name;
     }
 
     void OnTriggerEnter(Collider other)

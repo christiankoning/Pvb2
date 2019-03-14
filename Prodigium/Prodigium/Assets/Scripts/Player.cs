@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour {
 
@@ -12,20 +13,27 @@ public class Player : MonoBehaviour {
     private Vector3 movement;
     private Vector3 forceVector;
 
-
     public Rigidbody rb;
 
     private Vector3 velocityClamped;
 
     // Power Ups & Collectibles
-
+    public int Collected;
+    public Paths paths;
 
     //Damage
     public GameObject DamageRange;
     public bool IsSwinging;
 
-    // Health & Knockback
+    // Health
     public float Health = 100;
+
+    //SpawnPoints
+    public GameObject OWSpawn;
+    public GameObject Dungeon1Spawn;
+    public GameObject Dungeon2Spawn;
+    public GameObject BossSpawn;
+    private int RespawnPos;
 
     void Start()
     {
@@ -76,6 +84,48 @@ public class Player : MonoBehaviour {
         {
             Model.GetComponent<Animator>().SetBool("IsDead", true);
             rb.isKinematic = true;
+            Dead();
+        }
+        else
+        {
+            rb.isKinematic = false;
+            Model.GetComponent<Animator>().SetBool("IsDead", false);
+        }
+    }
+    
+    void Dead()
+    {
+        if(SceneManager.GetActiveScene().name == "Castle")
+        {
+            SceneManager.LoadScene("Castle");
+        }
+        else
+        {
+            if(RespawnPos == 0)
+            {
+                transform.position = OWSpawn.transform.position;
+                Health = 100;
+            }
+            else if(RespawnPos == 0 && Collected == 1)
+            {
+                transform.position = new Vector3(-126, 0.05f, -123);
+                Health = 100;
+            }
+            else if (RespawnPos == 1)
+            {
+                transform.position = Dungeon1Spawn.transform.position;
+                Health = 100;
+            }
+            else if (RespawnPos == 2)
+            {
+                transform.position = Dungeon2Spawn.transform.position;
+                Health = 100;
+            }
+            else if (RespawnPos == 3)
+            {
+                transform.position = BossSpawn.transform.position;
+                Health = 100;
+            }
         }
     }
 
@@ -88,6 +138,41 @@ public class Player : MonoBehaviour {
         else if(IsSwinging == true)
         {
             Model.GetComponent<Animator>().SetBool("IsAttacking", false);
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.name == "Dungeon1Trigger")
+        {
+            transform.position = Dungeon1Spawn.transform.position;
+            RespawnPos = 1;
+        }
+        if(other.gameObject.name == "Dungeon 2 Trigger")
+        {
+            transform.position = Dungeon2Spawn.transform.position;
+            RespawnPos = 2;
+        }
+        if(other.gameObject.name == "Boss Trigger")
+        {
+            transform.position = BossSpawn.transform.position;
+            RespawnPos = 3;
+        }
+        if(other.gameObject.name == "Collectable1")
+        {
+            transform.position = new Vector3(-126, 0.05f, -123);
+            Collected++;
+            Destroy(other.gameObject);
+            RespawnPos = 0;
+            paths.DungeonCompleted = 1;
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.name == "Exit")
+        {
+            SceneManager.LoadScene("Overworld");
         }
     }
 }

@@ -176,6 +176,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1218189362425750
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4390880283635424}
+  - component: {fileID: 65404962347827540}
+  m_Layer: 0
+  m_Name: SwordRange
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1 &1235741200231216
 GameObject:
   m_ObjectHideFlags: 1
@@ -886,6 +902,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4442390827046932}
   - component: {fileID: 95359371330392458}
+  - component: {fileID: 114004018022721582}
   m_Layer: 0
   m_Name: RPGHeroPolyart
   m_TagString: Untagged
@@ -1112,7 +1129,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4524488113893556}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -9.009638, y: -12.387488, z: -2.4275808}
 --- !u!4 &4082836644019616
 Transform:
   m_ObjectHideFlags: 1
@@ -1301,7 +1318,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4983724448199714}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.9944327, y: 171.66919, z: -167.98216}
 --- !u!4 &4262327526025456
 Transform:
   m_ObjectHideFlags: 1
@@ -1373,7 +1390,7 @@ Transform:
   - {fileID: 4384085573328038}
   m_Father: {fileID: 4805657426811380}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10.539184, y: -90, z: 0}
 --- !u!4 &4384085573328038
 Transform:
   m_ObjectHideFlags: 1
@@ -1399,6 +1416,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4294694883663728}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4390880283635424
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1218189362425750}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.0120001, z: 0.91199994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4442390827046932}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4396430626792522
 Transform:
@@ -1494,6 +1524,7 @@ Transform:
   m_Children:
   - {fileID: 4864094801301302}
   - {fileID: 4840209267415440}
+  - {fileID: 4390880283635424}
   m_Father: {fileID: 4837324752029204}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1619,7 +1650,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4477122717914190}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 8.920845e-19, y: 5.149431e-19, z: 0.13231325}
 --- !u!4 &4662931514248812
 Transform:
   m_ObjectHideFlags: 1
@@ -1674,7 +1705,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4840209267415440}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 39.498615, y: -100.18894, z: 81.39299}
 --- !u!4 &4705914248971950
 Transform:
   m_ObjectHideFlags: 1
@@ -1776,8 +1807,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1923694999472344}
-  m_LocalRotation: {x: 6.9384797e-17, y: 1.7169768e-16, z: -0.04006483, w: 0.99919707}
-  m_LocalPosition: {x: -0.124961086, y: 0.003215244, z: 3.99823e-17}
+  m_LocalRotation: {x: 0.000000029802322, y: 0.000000029802322, z: -0.040064797, w: 0.9991971}
+  m_LocalPosition: {x: -0.12496112, y: 0.0032152398, z: 0.00000001490115}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4347460255633306}
@@ -1836,7 +1867,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1672901013704250}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 15.24, y: 0.0000030994415, z: -284.6}
+  m_LocalPosition: {x: -15.31, y: 3.139, z: -8.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4413643626924926}
@@ -1850,8 +1881,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1856125071715386}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0, z: -0.05060407}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: 0, y: 0, z: -0.050604045}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4734614340157114}
@@ -1912,7 +1943,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4840209267415440}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -49.756638, y: 74.28999, z: -44.450375}
 --- !u!4 &4938853992532304
 Transform:
   m_ObjectHideFlags: 1
@@ -2162,6 +2193,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!65 &65404962347827540
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1218189362425750}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.0511684, y: 0.2607398, z: 1.2277038}
+  m_Center: {x: -0.005171776, y: -0.006572008, z: 0.22764266}
 --- !u!81 &81377352850147972
 AudioListener:
   m_ObjectHideFlags: 1
@@ -2187,6 +2230,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114004018022721582
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1838453784066396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10dc5067c1ca3a04eb9c79bd057e3578, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 114492968269876064}
 --- !u!114 &114492968269876064
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2200,10 +2255,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 120
   moveSpeedMinMax: 1
-  force: 500
   Model: {fileID: 1838453784066396}
   rb: {fileID: 54821083180589160}
-  Health: 3
+  DamageRange: {fileID: 1218189362425750}
+  IsSwinging: 0
+  Health: 100
 --- !u!114 &114507562904687340
 MonoBehaviour:
   m_ObjectHideFlags: 1

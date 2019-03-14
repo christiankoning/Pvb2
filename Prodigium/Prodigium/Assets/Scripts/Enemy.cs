@@ -18,9 +18,10 @@ public class Enemy : MonoBehaviour {
     public LootManager Lmanager;
     private bool SpawnedLoot;
     private int RandomNumber;
+    public Collider col;
 
-    private float TargetRaycastDistance = 0.1f;
-    private float VisibleDistance = 10f;
+    private float TargetRaycastDistance = 0.5f;
+    private float VisibleDistance = 5f;
 
     void Start()
     {
@@ -39,18 +40,18 @@ public class Enemy : MonoBehaviour {
 
     void Movement()
     {
+        int maxdist = 30;
+        int mindist = 2;
 
-        Vector3 ToPlayer = (Player.transform.position - transform.position) * VisibleDistance;
-        Vector3 EnemyPos = new Vector3(transform.position.x, 3.5f, transform.position.z);
-        RaycastHit hit1;
-        Debug.DrawRay(EnemyPos, ToPlayer, Color.green);
-
-        if (Physics.Raycast(EnemyPos, ToPlayer, out hit1, VisibleDistance))
+        if (Vector3.Distance(transform.position, Player.transform.position) >= mindist)
         {
-            FoundPlayer = true;
+            if (Vector3.Distance(transform.position, Player.transform.position) <= maxdist)
+            {
+                FoundPlayer = true;
+            }
         }
 
-        if(FoundPlayer == true && IsDead == false)
+            if (FoundPlayer == true && IsDead == false)
         {
             nma.destination = Player.transform.position;
 
@@ -68,21 +69,18 @@ public class Enemy : MonoBehaviour {
         if(IsDead == true)
         {
             nma.isStopped = true;
+            col.enabled = false;
         }
         
     }
 
     void Attack()
     {
-        Vector3 ToPlayer = (Player.transform.position - transform.position) * TargetRaycastDistance;
-        Vector3 EnemyPos = new Vector3(transform.position.x, 3.5f, transform.position.z);
-        RaycastHit hit;
-        Debug.DrawRay(EnemyPos, ToPlayer, Color.yellow);
 
-
-        if (Physics.Raycast(EnemyPos, ToPlayer, out hit, TargetRaycastDistance))
+        float dist = Vector3.Distance(transform.position, Player.transform.position);
+        if (dist < 1)
         {
-            if(AttackCooldown == false && hit.distance <= 1 && IsDead == false)
+            if (AttackCooldown == false && IsDead == false)
             {
                 anim.SetBool("IsAttacking", true);
                 player.Health = player.Health - 10;
