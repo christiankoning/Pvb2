@@ -10,6 +10,7 @@ public class Puzzles : MonoBehaviour {
     public GameObject PPStarLogo;
     public GameObject PPStarLogo2;
     public GameObject Door;
+    public GameObject BossDoor;
 
     private int Order = 1;
     private int WrongOrder = 0;
@@ -26,6 +27,8 @@ public class Puzzles : MonoBehaviour {
     private bool SquareSelected;
     private bool StarSelected;
     private bool IsWrong;
+
+    public Player player;
 
     void Start()
     {
@@ -50,6 +53,12 @@ public class Puzzles : MonoBehaviour {
             SquareSelected = false;
             StarSelected = false;
         }
+
+        if(player.Collected == 3)
+        {
+            BossDoor.GetComponent<Animator>().SetBool("CanOpen", true);
+        }
+        
     }
 
     void CorrectOrder()

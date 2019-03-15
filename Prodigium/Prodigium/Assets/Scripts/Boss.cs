@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour {
+public class Boss : MonoBehaviour {
 
     public GameObject Player;
     public GameObject SwordCollider;
-    public int Health;
+    public int BossHealth;
     private Rigidbody rb;
     private NavMeshAgent nma;
     private Animator anim;
@@ -19,6 +19,10 @@ public class Enemy : MonoBehaviour {
     private bool SpawnedLoot;
     private int RandomNumber;
     public Collider col;
+    private bool IsAttacking;
+    private int Shots;
+    public GameObject SpawnPoint;
+    public GameObject Fireball;
 
     void Start()
     {
@@ -39,14 +43,17 @@ public class Enemy : MonoBehaviour {
     {
         float dist = Vector3.Distance(transform.position, Player.transform.position);
 
-        if(dist < 15)
+        if (dist < 15)
         {
             FoundPlayer = true;
         }
 
-            if (FoundPlayer == true && IsDead == false)
+        if (FoundPlayer == true && IsDead == false && IsAttacking == false)
         {
+            nma.isStopped = false;
+            nma.ResetPath();
             nma.destination = Player.transform.position;
+            transform.LookAt(Player.transform.position);
 
             float velocity = nma.velocity.magnitude;
 
@@ -59,43 +66,60 @@ public class Enemy : MonoBehaviour {
                 anim.SetBool("IsMoving", false);
             }
         }
-        if(IsDead == true)
+        if (IsDead == true)
         {
             nma.isStopped = true;
             col.enabled = false;
         }
-        
+
     }
 
     void Attack()
     {
 
         float dist = Vector3.Distance(transform.position, Player.transform.position);
-        if (dist < 1)
+        if (dist < 8)
         {
-            if (AttackCooldown == false && IsDead == false)
+            if (IsAttacking == false && IsDead == false && AttackCooldown == false)
             {
-                anim.SetBool("IsAttacking", true);
-                player.Health = player.Health - 10;
-                AttackCooldown = true;
-                StartCoroutine(Cooldown());
+                Shots++;
+                anim.SetBool("CanShoot", true);
+                StartCoroutine(Delay());
+                IsAttacking = true;
+                GameObject newFireball = Instantiate(Fireball, SpawnPoint.transform.position, Quaternion.identity);
+                newFireball.GetComponent<Rigidbody>().AddForce(SpawnPoint.transform.forward * 350);
+                newFireball.name = "Magic";
+
             }
             else
             {
-                anim.SetBool("IsAttacking", false);
+                anim.SetBool("CanShoot", false);
             }
         }
+
+        if(Shots >= 3)
+        {
+            StartCoroutine(Reloading());
+            Shots = 0;
+            AttackCooldown = true;
+        }
+    }
+    
+    IEnumerator Reloading()
+    {
+        yield return new WaitForSeconds(5);
+        AttackCooldown = false;
     }
 
-    IEnumerator Cooldown()
+    IEnumerator Delay()
     {
-        yield return new WaitForSeconds(2);
-        AttackCooldown = false;
+        yield return new WaitForSeconds(1);
+        IsAttacking = false;
     }
 
     void CheckHealth()
     {
-        if(Health <= 0)
+        if (BossHealth <= 0)
         {
             //Show Dead Animation + Delete this gameobject
             anim.SetBool("IsDead", true);
@@ -108,9 +132,9 @@ public class Enemy : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject == SwordCollider)
+        if (other.gameObject == SwordCollider)
         {
-            Health--;
+            BossHealth--;
         }
     }
 
@@ -120,7 +144,7 @@ public class Enemy : MonoBehaviour {
         if (SpawnedLoot == false)
         {
             RandomNumber = Random.Range(0, 5);
-            GameObject Loot = Instantiate(Lmanager.Item[RandomNumber], transform.position + new Vector3(0,0.5f,0), Lmanager.Item[RandomNumber].transform.rotation);
+            GameObject Loot = Instantiate(Lmanager.Item[RandomNumber], transform.position + new Vector3(0, 0.5f, 0), Lmanager.Item[RandomNumber].transform.rotation);
             Loot.name = Lmanager.Item[RandomNumber].name;
             SpawnedLoot = true;
         }
@@ -128,7 +152,8 @@ public class Enemy : MonoBehaviour {
 
     IEnumerator Delete()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
         Destroy(gameObject);
     }
+
 }

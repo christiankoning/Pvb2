@@ -11,6 +11,9 @@ public class Paths : MonoBehaviour {
     public GameObject Dungeon2trigger;
     public GameObject Bosstrigger;
     public int DungeonCompleted;
+    public GameObject Dungeon1;
+    public GameObject Dungeon2;
+    public GameObject BossArea;
 
     void Update()
     {
@@ -30,6 +33,8 @@ public class Paths : MonoBehaviour {
             PathToLevel2.SetActive(true);
             Dungeon1trigger.SetActive(false);
             Dungeon2trigger.SetActive(true);
+            Dungeon1.SetActive(false);
+            Dungeon2.SetActive(true);
         }
 
         else if (DungeonCompleted == 2)
@@ -39,6 +44,8 @@ public class Paths : MonoBehaviour {
             PathToBoss.SetActive(true);
             Dungeon2trigger.SetActive(false);
             Bosstrigger.SetActive(true);
+            Dungeon2.SetActive(false);
+            BossArea.SetActive(true);
         }
     }
 }

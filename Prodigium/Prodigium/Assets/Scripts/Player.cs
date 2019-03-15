@@ -20,6 +20,8 @@ public class Player : MonoBehaviour {
     // Power Ups & Collectibles
     public int Collected;
     public Paths paths;
+    public GameObject DoubleHealth;
+    public GameObject FullHealth;
 
     //Damage
     public GameObject DamageRange;
@@ -143,22 +145,22 @@ public class Player : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name == "Dungeon1Trigger")
+        if (other.gameObject.name == "Dungeon1Trigger")
         {
             transform.position = Dungeon1Spawn.transform.position;
             RespawnPos = 1;
         }
-        if(other.gameObject.name == "Dungeon 2 Trigger")
+        if (other.gameObject.name == "Dungeon2Trigger")
         {
             transform.position = Dungeon2Spawn.transform.position;
             RespawnPos = 2;
         }
-        if(other.gameObject.name == "Boss Trigger")
+        if (other.gameObject.name == "BossTrigger")
         {
             transform.position = BossSpawn.transform.position;
             RespawnPos = 3;
         }
-        if(other.gameObject.name == "Collectable1")
+        if (other.gameObject.name == "Collectable1")
         {
             transform.position = new Vector3(-126, 0.05f, -123);
             Collected++;
@@ -166,6 +168,42 @@ public class Player : MonoBehaviour {
             RespawnPos = 0;
             paths.DungeonCompleted = 1;
         }
+
+        if (other.gameObject.name == "Collectable2")
+        {
+            transform.position = new Vector3(145.65f, 0.05f, -62.79f);
+            Collected++;
+            Destroy(other.gameObject);
+            RespawnPos = 0;
+            paths.DungeonCompleted = 2;
+        }
+
+        if (other.gameObject.name == "Collectable3")
+        {
+            Collected++;
+            Destroy(other.gameObject);
+        }
+
+        if (other.gameObject.name == "Magic")
+        {
+            Health = Health - 10;
+        }
+
+        if (other.gameObject.name == "DoubleHealth")
+        {
+            Health = Health * 2;
+            StartCoroutine(ActiveEffect());
+        }
+        if (other.gameObject.name == "FullHealth")
+        {
+            Health = 100;
+        }
+    }
+
+    IEnumerator ActiveEffect()
+    {
+        yield return new WaitForSeconds(30);
+        Health = Health / 2;
     }
 
     void OnCollisionEnter(Collision collision)
