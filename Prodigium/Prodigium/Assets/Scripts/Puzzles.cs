@@ -70,7 +70,7 @@ public class Puzzles : MonoBehaviour {
         Door.GetComponent<Animator>().SetBool("CanOpen", true);
     }
 
-    void OnCollisionEnter(Collision other)
+    void OnTriggerEnter(Collider other)
     {
         if(other.gameObject == PPCircleLogo)
         {

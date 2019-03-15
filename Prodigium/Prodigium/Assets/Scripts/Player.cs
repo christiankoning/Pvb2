@@ -133,7 +133,7 @@ public class Player : MonoBehaviour {
 
     public void Hit()
     {
-        if(Input.GetMouseButtonDown(0) && IsSwinging == false)
+        if(Input.GetMouseButtonDown(0) && IsSwinging == false || Input.GetKeyDown(KeyCode.JoystickButton2) && IsSwinging == false)
         {
             Model.GetComponent<Animator>().SetBool("IsAttacking", true);
         }
@@ -163,6 +163,7 @@ public class Player : MonoBehaviour {
         if (other.gameObject.name == "Collectable1")
         {
             transform.position = new Vector3(-126, 0.05f, -123);
+            OWSpawn.transform.position = new Vector3(-126, 0.05f, -123);
             Collected++;
             Destroy(other.gameObject);
             RespawnPos = 0;
@@ -172,6 +173,7 @@ public class Player : MonoBehaviour {
         if (other.gameObject.name == "Collectable2")
         {
             transform.position = new Vector3(145.65f, 0.05f, -62.79f);
+            OWSpawn.transform.position = new Vector3(145.65f, 0.05f, -62.79f);
             Collected++;
             Destroy(other.gameObject);
             RespawnPos = 0;

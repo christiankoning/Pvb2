@@ -5,11 +5,18 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour {
 
     public Player player;
+    public SoundManager SManager;
 
-	public void StartAttack()
+    void Start()
+    {
+        SManager.AudioSwordSwing = SManager.AddAudio(SManager.Punch, false, 0.2f);
+    }
+
+    public void StartAttack()
     {
         player.DamageRange.SetActive(true);
         player.IsSwinging = true;
+        SManager.AudioSwordSwing.Play();
     }
 
     public void AttackFinish()

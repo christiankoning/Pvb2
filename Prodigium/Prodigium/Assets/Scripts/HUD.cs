@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class HUD : MonoBehaviour {
 
@@ -11,11 +12,15 @@ public class HUD : MonoBehaviour {
     public Boss boss;
     public GameObject BossHUD;
     public Slider HealthBarSlider;
+    public GameObject InventoryPanel;
+    private bool IsOpen;
+    public PauseGame pause;
 
     void Start()
     {
         player = FindObjectOfType<Player>();
         BossHUD.SetActive(false);
+        IsOpen = false;
     }
 
     void Update()
@@ -28,6 +33,39 @@ public class HUD : MonoBehaviour {
             BossHUD.SetActive(true);
         }
 
-        HealthBarSlider.value = boss.BossHealth;
+        if (SceneManager.GetSceneByBuildIndex(2).isLoaded)
+        {
+            HealthBarSlider.value = boss.BossHealth;
+        }
+
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            Switch();
+        }
+
+        if(pause.isPaused == true)
+        {
+            IsOpen = false;
+            InventoryPanel.SetActive(false);
+        }
+    }
+
+    void Switch()
+    {
+        if (pause.isPaused == false)
+        {
+            if (IsOpen == true)
+            {
+                IsOpen = false;
+                InventoryPanel.SetActive(false);
+                Time.timeScale = 1;
+            }
+            else
+            {
+                IsOpen = true;
+                InventoryPanel.SetActive(true);
+                Time.timeScale = 0;
+            }
+        }
     }
 }

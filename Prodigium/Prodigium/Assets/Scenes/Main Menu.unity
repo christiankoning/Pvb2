@@ -942,6 +942,59 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!1001 &1813219254
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4441728321055146, guid: b870039d02577184b8834c3fee8202c7, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -11.209761
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441728321055146, guid: b870039d02577184b8834c3fee8202c7, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 4.100269
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441728321055146, guid: b870039d02577184b8834c3fee8202c7, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0.81703854
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441728321055146, guid: b870039d02577184b8834c3fee8202c7, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441728321055146, guid: b870039d02577184b8834c3fee8202c7, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441728321055146, guid: b870039d02577184b8834c3fee8202c7, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441728321055146, guid: b870039d02577184b8834c3fee8202c7, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4441728321055146, guid: b870039d02577184b8834c3fee8202c7, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1580434157210906, guid: b870039d02577184b8834c3fee8202c7, type: 2}
+      propertyPath: m_Name
+      value: SoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 114165998034932406, guid: b870039d02577184b8834c3fee8202c7,
+        type: 2}
+      propertyPath: MenuMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 8a0499e3d8e82cc43b15437209b155fe, type: 3}
+    m_RemovedComponents:
+    - {fileID: 114132355342495080, guid: b870039d02577184b8834c3fee8202c7, type: 2}
+    - {fileID: 114909805073264702, guid: b870039d02577184b8834c3fee8202c7, type: 2}
+  m_SourcePrefab: {fileID: 100100000, guid: b870039d02577184b8834c3fee8202c7, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &2041894431
 GameObject:
   m_ObjectHideFlags: 0

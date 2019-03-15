@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class Despawn : MonoBehaviour {
 
+    public SoundManager SManager;
+
+    void Start()
+    {
+        SManager = FindObjectOfType<SoundManager>();
+    }
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject)
+        if (other.gameObject)
         {
+            SManager.AudioCollecting.Play();
             Destroy(gameObject);
         }
     }
