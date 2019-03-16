@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InvItems : MonoBehaviour, IInventoryItem {
+public class InvItems : InventoryItemBase {
 
-	public string Name
+	public override string Name
     {
         get
         {
@@ -12,8 +12,7 @@ public class InvItems : MonoBehaviour, IInventoryItem {
         }
     }
 
-
-    public Sprite Image
+    public override Sprite Image
     {
         get
         {
@@ -21,8 +20,28 @@ public class InvItems : MonoBehaviour, IInventoryItem {
         }
     }
 
-    public void OnPickUp()
+    public override void OnPickUp()
     {
         gameObject.SetActive(false);
+    }
+
+    public GameObject player;
+    public Inventory inventory;
+
+    public SoundManager SManager;
+
+    private void Start()
+    {
+        player = GameObject.Find("Player");
+        inventory = FindObjectOfType<Inventory>();
+        SManager = FindObjectOfType<SoundManager>();
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == player)
+        {
+            SManager.AudioCollecting.Play();
+        }
     }
 }

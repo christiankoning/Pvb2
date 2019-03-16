@@ -22,7 +22,6 @@ public class Item : MonoBehaviour {
         if (other.gameObject == player)
         {
             SManager.AudioCollecting.Play();
-            Destroy(gameObject);
         }
     }
 }

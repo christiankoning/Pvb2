@@ -6,9 +6,9 @@ public class PlayerInv : MonoBehaviour {
 
     public Inventory inventory;
 
-    private void OnCollisionEnter(Collision hit)
+    private void OnTriggerEnter(Collider hit)
     {
-        IInventoryItem item = hit.collider.GetComponent<IInventoryItem>();
+        IInventoryItem item = hit.GetComponent<IInventoryItem>();
         if (item != null)
         {
             inventory.AddItem(item);

@@ -5,30 +5,60 @@ using System;
 
 public class Inventory : MonoBehaviour
 {
-    private const int Slots = 10;
+    private const int SLOTS = 49;
 
-    private List<IInventoryItem> mItems = new List<IInventoryItem>();
+    private List<InventorySlot> mSlots = new List<InventorySlot>();
 
     public event EventHandler<InventoryEventArgs> ItemAdded;
 
+    public Inventory()
+    {
+        for(int i = 0; i < SLOTS; i++)
+        {
+            mSlots.Add(new InventorySlot(i));
+            
+        }
+    }
+
+    private InventorySlot FindStackableSlot(IInventoryItem item)
+    {
+        foreach(InventorySlot slot in mSlots)
+        {
+            if(slot.IsStackable(item))
+            {
+                return slot;
+            }
+        }
+        return null;
+    }
+
+    private InventorySlot FindNextEmptySlot()
+    {
+        foreach(InventorySlot slot in mSlots)
+        {
+            if(slot.IsEmpty)
+            {
+                return slot;
+            }
+        }
+        return null;
+    }
+
     public void AddItem(IInventoryItem item)
     {
-        if(mItems.Count < Slots)
+        InventorySlot freeslot = FindStackableSlot(item);
+        if(freeslot == null)
         {
-            Collider collider = (item as MonoBehaviour).GetComponent<Collider>();
-            if(collider.enabled)
+            freeslot = FindNextEmptySlot();
+        }
+        if(freeslot != null)
+        {
+            freeslot.AddItem(item);
+            item.OnPickUp();
+
+            if(ItemAdded != null)
             {
-                collider.enabled = false;
-
-                mItems.Add(item);
-
-                item.OnPickUp();
-
-                
-                if(ItemAdded != null)
-                {
-                    ItemAdded(this, new InventoryEventArgs(item));
-                }
+                ItemAdded(this, new InventoryEventArgs(item));
             }
         }
     }

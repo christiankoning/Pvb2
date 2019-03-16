@@ -7,6 +7,12 @@ using UnityEngine.UI;
 public class Menu : MonoBehaviour {
 
 
+    private void Start()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     public void StartGame()
     {
         SceneManager.LoadScene("Castle");

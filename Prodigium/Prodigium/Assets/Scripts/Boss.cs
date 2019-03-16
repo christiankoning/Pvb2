@@ -23,6 +23,7 @@ public class Boss : MonoBehaviour {
     private int Shots;
     public GameObject SpawnPoint;
     public GameObject Fireball;
+    public HUD hud;
 
     void Start()
     {
@@ -37,6 +38,11 @@ public class Boss : MonoBehaviour {
         CheckHealth();
         Movement();
         Attack();
+
+        if (BossHealth == 0)
+        {
+            hud.isFadingOut = true;
+        }
     }
 
     void Movement()

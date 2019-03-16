@@ -16,6 +16,13 @@ public class HUD : MonoBehaviour {
     private bool IsOpen;
     public PauseGame pause;
 
+    public bool isFadingOut;
+    public Texture2D fadeImage;
+    public float fadeSpeed = 0.2f;
+    public int drawDepth = 1000;
+    private float alpha = -1.0f;
+    private int fadeDir = 1;
+
     void Start()
     {
         player = FindObjectOfType<Player>();
@@ -38,7 +45,7 @@ public class HUD : MonoBehaviour {
             HealthBarSlider.value = boss.BossHealth;
         }
 
-        if(Input.GetKeyDown(KeyCode.I))
+        if(Input.GetKeyDown(KeyCode.I) || Input.GetKeyDown(KeyCode.JoystickButton3))
         {
             Switch();
         }
@@ -48,6 +55,30 @@ public class HUD : MonoBehaviour {
             IsOpen = false;
             InventoryPanel.SetActive(false);
         }
+    }
+
+    void OnGUI()
+    {
+        if (isFadingOut == true)
+        {
+            StartCoroutine(finalcountdown());
+            alpha += fadeDir * fadeSpeed * Time.deltaTime;
+            alpha = Mathf.Clamp01(alpha);
+
+            Color thisAlpha = GUI.color;
+            thisAlpha.a = alpha;
+            GUI.color = thisAlpha;
+
+            GUI.depth = drawDepth;
+
+            GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), fadeImage);
+        }
+    }
+
+    IEnumerator finalcountdown()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene("Main Menu");
     }
 
     void Switch()

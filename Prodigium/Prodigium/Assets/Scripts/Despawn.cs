@@ -15,7 +15,7 @@ public class Despawn : MonoBehaviour {
     {
         if (other.gameObject)
         {
-            SManager.AudioCollecting.Play();
+            SManager.AudioShot.Play();
             Destroy(gameObject);
         }
     }

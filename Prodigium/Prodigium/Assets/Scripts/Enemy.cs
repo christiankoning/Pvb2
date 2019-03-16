@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour {
 
@@ -117,12 +118,16 @@ public class Enemy : MonoBehaviour {
     void Despawn()
     {
         StartCoroutine(Delete());
-        if (SpawnedLoot == false)
+        // To make sure no loot is getting spawned in the tutorial scene
+        if(SceneManager.GetSceneByBuildIndex(2).isLoaded)
         {
-            RandomNumber = Random.Range(0, 5);
-            GameObject Loot = Instantiate(Lmanager.Item[RandomNumber], transform.position + new Vector3(0,0.5f,0), Lmanager.Item[RandomNumber].transform.rotation);
-            Loot.name = Lmanager.Item[RandomNumber].name;
-            SpawnedLoot = true;
+            if (SpawnedLoot == false)
+            {
+                RandomNumber = Random.Range(0, 5);
+                GameObject Loot = Instantiate(Lmanager.Item[RandomNumber], transform.position + new Vector3(0, 0.5f, 0), Lmanager.Item[RandomNumber].transform.rotation);
+                Loot.name = Lmanager.Item[RandomNumber].name;
+                SpawnedLoot = true;
+            }
         }
     }
 

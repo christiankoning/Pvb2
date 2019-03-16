@@ -20,8 +20,6 @@ public class Player : MonoBehaviour {
     // Power Ups & Collectibles
     public int Collected;
     public Paths paths;
-    public GameObject DoubleHealth;
-    public GameObject FullHealth;
 
     //Damage
     public GameObject DamageRange;
@@ -195,9 +193,11 @@ public class Player : MonoBehaviour {
         {
             Health = Health * 2;
             StartCoroutine(ActiveEffect());
+            Destroy(other.gameObject);
         }
         if (other.gameObject.name == "FullHealth")
         {
+            Destroy(other.gameObject);
             Health = 100;
         }
     }
